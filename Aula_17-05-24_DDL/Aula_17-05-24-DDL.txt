@@ -1,0 +1,151 @@
+C:\xampp\mysql\bin>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 145
+Server version: 10.4.28-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use biblioteca;
+Database changed
+MariaDB [biblioteca]> create table livro(
+    -> idLivro int primary key auto_increment,
+    -> titulo varchar(255),
+    -> qtDePaginas int,
+    -> genero varchar(255),
+    -> autor varchar(255));
+Query OK, 0 rows affected (0.014 sec)
+
+MariaDB [biblioteca]> describe livro
+    -> ;
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| idLivro     | int(11)      | NO   | PRI | NULL    | auto_increment |
+| titulo      | varchar(255) | YES  |     | NULL    |                |
+| qtDePaginas | int(11)      | YES  |     | NULL    |                |
+| genero      | varchar(255) | YES  |     | NULL    |                |
+| autor       | varchar(255) | YES  |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+5 rows in set (0.018 sec)
+
+MariaDB [biblioteca]> drop DATABASE escola;
+Query OK, 0 rows affected (0.001 sec)
+
+MariaDB [biblioteca]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| biblioteca         |
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| test               |
+| veterinaria        |
++--------------------+
+7 rows in set (0.001 sec)
+
+MariaDB [biblioteca]> show tables;
++----------------------+
+| Tables_in_biblioteca |
++----------------------+
+| livro                |
++----------------------+
+1 row in set (0.000 sec)
+
+MariaDB [biblioteca]> raname tale animal to animais;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'raname tale animal to animais' at line 1
+MariaDB [biblioteca]> raname table animal to animais;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'raname table animal to animais' at line 1
+MariaDB [biblioteca]> rename table animal to animais;
+ERROR 1146 (42S02): Table 'biblioteca.animal' doesn't exist
+MariaDB [biblioteca]> show tables
+    -> ;
++----------------------+
+| Tables_in_biblioteca |
++----------------------+
+| livro                |
++----------------------+
+1 row in set (0.000 sec)
+
+MariaDB [biblioteca]> use veterinaria;
+Database changed
+MariaDB [veterinaria]> rename table animal to animais;
+Query OK, 0 rows affected (0.012 sec)
+
+MariaDB [veterinaria]> use biblioteca;
+Database changed
+MariaDB [biblioteca]> rename table livro to livros;
+Query OK, 0 rows affected (0.013 sec)
+
+MariaDB [biblioteca]> alter table animal add column dataDeNascmento datetime;
+ERROR 1146 (42S02): Table 'biblioteca.animal' doesn't exist
+MariaDB [biblioteca]> use veterinaria;
+Database changed
+MariaDB [veterinaria]> alter table animal add column dataDeNascmento datetime;
+ERROR 1146 (42S02): Table 'veterinaria.animal' doesn't exist
+MariaDB [veterinaria]> alter table animais add column dataDeNascmento datetime;
+Query OK, 0 rows affected (0.009 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [veterinaria]> alter table animais add column corDePele varchar(255);
+Query OK, 0 rows affected (0.010 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [veterinaria]> describe animnais;
+ERROR 1146 (42S02): Table 'veterinaria.animnais' doesn't exist
+MariaDB [veterinaria]> describe animais;
++-----------------+--------------+------+-----+---------+----------------+
+| Field           | Type         | Null | Key | Default | Extra          |
++-----------------+--------------+------+-----+---------+----------------+
+| idAnimal        | int(11)      | NO   | PRI | NULL    | auto_increment |
+| nome            | varchar(255) | YES  |     | NULL    |                |
+| raca            | varchar(255) | YES  |     | NULL    |                |
+| peso            | decimal(7,2) | YES  |     | NULL    |                |
+| dataDeNascmento | datetime     | YES  |     | NULL    |                |
+| corDePele       | varchar(255) | YES  |     | NULL    |                |
++-----------------+--------------+------+-----+---------+----------------+
+6 rows in set (0.014 sec)
+
+MariaDB [veterinaria]> alter table animais drop column dataDeNascmento datetime;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'datetime' at line 1
+MariaDB [veterinaria]> alter table animais drop column dataDeNascmento;
+Query OK, 0 rows affected (0.010 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [veterinaria]> describe animais;
++-----------+--------------+------+-----+---------+----------------+
+| Field     | Type         | Null | Key | Default | Extra          |
++-----------+--------------+------+-----+---------+----------------+
+| idAnimal  | int(11)      | NO   | PRI | NULL    | auto_increment |
+| nome      | varchar(255) | YES  |     | NULL    |                |
+| raca      | varchar(255) | YES  |     | NULL    |                |
+| peso      | decimal(7,2) | YES  |     | NULL    |                |
+| corDePele | varchar(255) | YES  |     | NULL    |                |
++-----------+--------------+------+-----+---------+----------------+
+5 rows in set (0.016 sec)
+
+MariaDB [veterinaria]> create table clientes;
+ERROR 1113 (42000): A table must have at least 1 column
+MariaDB [veterinaria]> create table clientes(
+    -> idCliente int primary key auto_increment);
+Query OK, 0 rows affected (0.013 sec)
+
+MariaDB [veterinaria]> drop table clientes;
+Query OK, 0 rows affected (0.006 sec)
+
+MariaDB [veterinaria]> describe animais;
++-----------+--------------+------+-----+---------+----------------+
+| Field     | Type         | Null | Key | Default | Extra          |
++-----------+--------------+------+-----+---------+----------------+
+| idAnimal  | int(11)      | NO   | PRI | NULL    | auto_increment |
+| nome      | varchar(255) | YES  |     | NULL    |                |
+| raca      | varchar(255) | YES  |     | NULL    |                |
+| peso      | decimal(7,2) | YES  |     | NULL    |                |
+| corDePele | varchar(255) | YES  |     | NULL    |                |
++-----------+--------------+------+-----+---------+----------------+
+5 rows in set (0.014 sec)
+
+MariaDB [veterinaria]>
