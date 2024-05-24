@@ -1,0 +1,104 @@
+Microsoft Windows [versão 10.0.22631.3593]
+(c) Microsoft Corporation. Todos os direitos reservados.
+
+C:\Windows\System32>cd C:\wamp64\bin\mysql\mysql8.0.31\bin
+
+C:\wamp64\bin\mysql\mysql8.0.31\bin>mysql -u root
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 23
+Server version: 8.0.31 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database produtoraVinho
+    -> ;
+ERROR 1007 (HY000): Can't create database 'produtoravinho'; database exists
+mysql> use produtoraVinho;
+Database changed
+mysql> create table regiao (
+    -> idRegiao int PRIMARY KEY auto_increment,
+    -> regiao varchar(50) not null):
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ':' at line 3
+mysql> create table regiao (
+    -> idRegiao int PRIMARY KEY auto_increment,
+    -> regiao varchar(50) not null);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show tables
+    -> ;
++--------------------------+
+| Tables_in_produtoravinho |
++--------------------------+
+| regiao                   |
++--------------------------+
+1 row in set (0.01 sec)
+
+mysql> create table produtores (
+    -> idProdutor int PRIMARY KEY auto_increment,
+    -> nomeProdutor varchar(50),
+    -> moradaProdutor varchar(50),
+    -> telefone varchar (15),
+    -> email varchar(50) unique,
+    -> idRegiao int,
+    -> foreign key (idRegiao) references regiao (idRegiao));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show tables
+    -> ;
++--------------------------+
+| Tables_in_produtoravinho |
++--------------------------+
+| produtores               |
+| regiao                   |
++--------------------------+
+2 rows in set (0.00 sec)
+
+mysql> describe produtores;
++----------------+-------------+------+-----+---------+----------------+
+| Field          | Type        | Null | Key | Default | Extra          |
++----------------+-------------+------+-----+---------+----------------+
+| idProdutor     | int         | NO   | PRI | NULL    | auto_increment |
+| nomeProdutor   | varchar(50) | YES  |     | NULL    |                |
+| moradaProdutor | varchar(50) | YES  |     | NULL    |                |
+| telefone       | varchar(15) | YES  |     | NULL    |                |
+| email          | varchar(50) | YES  | UNI | NULL    |                |
+| idRegiao       | int         | YES  | MUL | NULL    |                |
++----------------+-------------+------+-----+---------+----------------+
+6 rows in set (0.01 sec)
+
+mysql> create table vinho (
+    -> idVinho int PRIMARY KEY auto_increment,
+    -> nomeVinho varchar(50),
+    -> anoVinho int,
+    -> cor varchar(15),
+    -> grau decimal(7,2),
+    -> preco decimal(7,2),
+    -> idProdutor int,
+    -> FOREIGN KEY (idProdutor) REFERENCES produtores (idProdutor)
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create table castas (
+    -> idCastas int PRIMARY KEY auto_increment,
+    -> castas varchar(50));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create table castas_vinho(
+    -> idVinho int
+    -> idCastas int,^C
+mysql> create table castas_vinho(
+    -> idVinho int,
+    -> idCastas int,
+    -> FOREIGN KEY (idVinho) REFERENCES vinho (idVinho),
+    -> FOREIGN KEY (idCastas) REFERENCES castas (idCastas))
+    -> ;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>
