@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Tempo de geração: 24-Maio-2024 às 23:15
--- Versão do servidor: 8.0.31
--- versão do PHP: 8.0.26
+-- Host: 127.0.0.1
+-- Tempo de geração: 07/06/2024 às 17:42
+-- Versão do servidor: 10.4.28-MariaDB
+-- Versão do PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,86 +20,148 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `produtoravinho`
 --
-CREATE DATABASE IF NOT EXISTS `produtoravinho` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-USE `produtoravinho`;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `castas`
+-- Estrutura para tabela `castas`
 --
 
-DROP TABLE IF EXISTS `castas`;
-CREATE TABLE IF NOT EXISTS `castas` (
-  `idCastas` int NOT NULL AUTO_INCREMENT,
-  `castas` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`idCastas`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `castas` (
+  `idCastas` int(11) NOT NULL,
+  `castas` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `castas_vinho`
+-- Estrutura para tabela `castas_vinho`
 --
 
-DROP TABLE IF EXISTS `castas_vinho`;
-CREATE TABLE IF NOT EXISTS `castas_vinho` (
-  `idVinho` int DEFAULT NULL,
-  `idCastas` int DEFAULT NULL,
-  KEY `idVinho` (`idVinho`),
-  KEY `idCastas` (`idCastas`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `castas_vinho` (
+  `idVinho` int(11) DEFAULT NULL,
+  `idCastas` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `produtores`
+-- Estrutura para tabela `produtores`
 --
 
-DROP TABLE IF EXISTS `produtores`;
-CREATE TABLE IF NOT EXISTS `produtores` (
-  `idProdutor` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `produtores` (
+  `idProdutor` int(11) NOT NULL,
   `nomeProdutor` varchar(50) DEFAULT NULL,
   `moradaProdutor` varchar(50) DEFAULT NULL,
   `telefone` varchar(15) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
-  `idRegiao` int DEFAULT NULL,
-  PRIMARY KEY (`idProdutor`),
-  UNIQUE KEY `email` (`email`),
-  KEY `idRegiao` (`idRegiao`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `idRegiao` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `regiao`
+-- Estrutura para tabela `regiao`
 --
 
-DROP TABLE IF EXISTS `regiao`;
-CREATE TABLE IF NOT EXISTS `regiao` (
-  `idRegiao` int NOT NULL AUTO_INCREMENT,
-  `regiao` varchar(50) NOT NULL,
-  PRIMARY KEY (`idRegiao`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `regiao` (
+  `idRegiao` int(11) NOT NULL,
+  `regiao` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `regiao`
+--
+
+INSERT INTO `regiao` (`idRegiao`, `regiao`) VALUES
+(1, 'Dão'),
+(2, 'Douro'),
+(3, 'ETECMCM'),
+(4, 'Fazenda da ETEC'),
+(5, 'Dão'),
+(6, 'Alenteijo');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `vinho`
+-- Estrutura para tabela `vinho`
 --
 
-DROP TABLE IF EXISTS `vinho`;
-CREATE TABLE IF NOT EXISTS `vinho` (
-  `idVinho` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `vinho` (
+  `idVinho` int(11) NOT NULL,
   `nomeVinho` varchar(50) DEFAULT NULL,
-  `anoVinho` int DEFAULT NULL,
+  `anoVinho` int(11) DEFAULT NULL,
   `cor` varchar(15) DEFAULT NULL,
   `grau` decimal(7,2) DEFAULT NULL,
   `preco` decimal(7,2) DEFAULT NULL,
-  `idProdutor` int DEFAULT NULL,
-  PRIMARY KEY (`idVinho`),
-  KEY `idProdutor` (`idProdutor`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `idProdutor` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Índices para tabelas despejadas
+--
+
+--
+-- Índices de tabela `castas`
+--
+ALTER TABLE `castas`
+  ADD PRIMARY KEY (`idCastas`);
+
+--
+-- Índices de tabela `castas_vinho`
+--
+ALTER TABLE `castas_vinho`
+  ADD KEY `idVinho` (`idVinho`),
+  ADD KEY `idCastas` (`idCastas`);
+
+--
+-- Índices de tabela `produtores`
+--
+ALTER TABLE `produtores`
+  ADD PRIMARY KEY (`idProdutor`),
+  ADD UNIQUE KEY `email` (`email`),
+  ADD KEY `idRegiao` (`idRegiao`);
+
+--
+-- Índices de tabela `regiao`
+--
+ALTER TABLE `regiao`
+  ADD PRIMARY KEY (`idRegiao`);
+
+--
+-- Índices de tabela `vinho`
+--
+ALTER TABLE `vinho`
+  ADD PRIMARY KEY (`idVinho`),
+  ADD KEY `idProdutor` (`idProdutor`);
+
+--
+-- AUTO_INCREMENT para tabelas despejadas
+--
+
+--
+-- AUTO_INCREMENT de tabela `castas`
+--
+ALTER TABLE `castas`
+  MODIFY `idCastas` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `produtores`
+--
+ALTER TABLE `produtores`
+  MODIFY `idProdutor` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `regiao`
+--
+ALTER TABLE `regiao`
+  MODIFY `idRegiao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de tabela `vinho`
+--
+ALTER TABLE `vinho`
+  MODIFY `idVinho` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
