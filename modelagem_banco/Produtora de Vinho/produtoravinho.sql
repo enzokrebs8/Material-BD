@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 07/06/2024 às 17:42
+-- Tempo de geração: 14/06/2024 às 17:45
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `produtoravinho`
 --
+CREATE DATABASE IF NOT EXISTS `produtoravinho` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `produtoravinho`;
 
 -- --------------------------------------------------------
 
@@ -32,6 +34,18 @@ CREATE TABLE `castas` (
   `castas` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Despejando dados para a tabela `castas`
+--
+
+INSERT INTO `castas` (`idCastas`, `castas`) VALUES
+(1, 'Touriga Nacional'),
+(2, 'Tinta Roriz'),
+(3, 'Tinta Barroca'),
+(4, 'Malbec'),
+(5, 'Pinot Noir'),
+(6, 'Cabernet Sauvignon');
+
 -- --------------------------------------------------------
 
 --
@@ -42,6 +56,18 @@ CREATE TABLE `castas_vinho` (
   `idVinho` int(11) DEFAULT NULL,
   `idCastas` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `castas_vinho`
+--
+
+INSERT INTO `castas_vinho` (`idVinho`, `idCastas`) VALUES
+(6, 1),
+(5, 2),
+(4, 3),
+(3, 4),
+(2, 5),
+(1, 6);
 
 -- --------------------------------------------------------
 
@@ -57,6 +83,17 @@ CREATE TABLE `produtores` (
   `email` varchar(50) DEFAULT NULL,
   `idRegiao` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `produtores`
+--
+
+INSERT INTO `produtores` (`idProdutor`, `nomeProdutor`, `moradaProdutor`, `telefone`, `email`, `idRegiao`) VALUES
+(1, 'Qt. Vallado', 'Régua', '254323147', 'vallado@mail.telepac.pt', 1),
+(2, 'Alfredo Uvas', 'LauLau', '269009270', 'alfredouvas@mail.uvas.com', 2),
+(3, 'Finagra', 'Reguengos', '266509270', 'esporao@esporao.com', 2),
+(4, 'Dão Sul', 'Sul', '897969787', 'daosul@mail.ai.com', 3),
+(6, 'Kolheita Ideias', 'Norte', '123456789', 'kolheitaideias@mail.op.com', 1);
 
 -- --------------------------------------------------------
 
@@ -96,6 +133,18 @@ CREATE TABLE `vinho` (
   `preco` decimal(7,2) DEFAULT NULL,
   `idProdutor` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `vinho`
+--
+
+INSERT INTO `vinho` (`idVinho`, `nomeVinho`, `anoVinho`, `cor`, `grau`, `preco`, `idProdutor`) VALUES
+(1, 'Esporão Reserva', 2004, 'Tinto', 14.50, 18.50, 3),
+(2, 'Quinta do Vallado', 2004, 'Tinto', 14.00, 6.50, 1),
+(3, 'Muros Antigos', 2006, 'Branco', 13.00, 7.50, 7),
+(4, 'LauLau', 1920, 'Branco', 13.00, 7059.99, 7),
+(5, 'Le Vine FIFA WORLD CUP ESPECIAL EDITION', 2002, 'Rosé', 13.00, 6779.90, 7),
+(6, 'LA femme', 1989, 'Tinto', 13.00, 67.50, 7);
 
 --
 -- Índices para tabelas despejadas
@@ -143,13 +192,13 @@ ALTER TABLE `vinho`
 -- AUTO_INCREMENT de tabela `castas`
 --
 ALTER TABLE `castas`
-  MODIFY `idCastas` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idCastas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `produtores`
 --
 ALTER TABLE `produtores`
-  MODIFY `idProdutor` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idProdutor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `regiao`
@@ -161,7 +210,7 @@ ALTER TABLE `regiao`
 -- AUTO_INCREMENT de tabela `vinho`
 --
 ALTER TABLE `vinho`
-  MODIFY `idVinho` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idVinho` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
