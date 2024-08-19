@@ -1,93 +1,97 @@
 CREATE TABLE proprietario (
-idProprietario int PRIMARY KEY unique not null,
-nomeProp varchar(50) not null,
-cpfProp varchar(13) unique not null,
-rgProp varchar(13) unique,
-dataNascProp date,
-telefoneProp varchar(18),
-emailProp varchar(50) unique not null,
-agencia varchar(4),
-numConta varchar(20),
-chavePix varchar(60)
-)
-
-CREATE TABLE imovel (
-idImovel int PRIMARY KEY unique,
-areaConstruida float(7),
-areaTotal float(7),
-qntdQuartos int(3),
-qntdBanheiros int(3),
-areaDeServico bit,
-quintal bit,
-piscina bit,
-condominio bit,
-garagem bit,
-qntdVagas int(4),
-suites int(100),
-idProprietario int,
-idEndereco int,
-FOREIGN KEY(idProprietario) REFERENCES proprietario (idProprietario)
-)
-
-CREATE TABLE fiador (
-idFiador int PRIMARY KEY unique not null,
-nomeFi varchar(50) not null,
-cpfFi varchar(13) unique not null,
-rgFi varchar(13) unique,
-dataNascFi date,
-telefoneFi varchar(18) unique,
-emailFi varchar(50) unique
-)
-
-CREATE TABLE inquilino (
-idInquilino int PRIMARY KEY,
-cpfInq varchar(13),
-emailInq varchar(50),
-telefoneInq varchar(18),
-dataNascInq date,
-nomeInq varchar(50),
-rgInq varchar(13),
-idFiador int,
-FOREIGN KEY(idFiador) REFERENCES fiador (idFiador)
-)
-
-CREATE TABLE aluguel (
-inicio date,
-fim date,
-valor float(7),
-condicoes varchar(max),
-idAluguel int PRIMARY KEY,
-descricao varchar(max),
-idCorretor int,
-idImovel int,
-idInquilino int,
-FOREIGN KEY(idImovel) REFERENCES imovel (idImovel),
-FOREIGN KEY(idInquilino) REFERENCES inquilino (idInquilino)
-)
+  idProprietario int PRIMARY KEY not null AUTO_INCREMENT,
+  nomeProp varchar(50) not null,
+  cpfProp varchar(13) unique not null,
+  rgProp varchar(13) unique,
+  dataNascProp date not null,
+  telefoneProp varchar(18) unique not null,
+  emailProp varchar(50) unique not null,
+  agencia varchar(4) not null,
+  numConta varchar(20) unique not null,
+  chavePix varchar(60) unique NOT null
+);
 
 CREATE TABLE corretor (
-emailCor varchar(50),
-idCorretor int PRIMARY KEY,
-nomeCor varchar(50),
-rgCor varchar(13),
-cpfCor varchar(13),
-dataNascCor date,
-telefoneCor varchar(18)
-)
+  idCorretor int PRIMARY KEY NOT null AUTO_INCREMENT,
+  nomeCor varchar(50) not null,
+  cpfCor varchar(13) unique not null,
+  rgCor varchar(13) unique,
+  dataNascCor date,
+  telefoneCor varchar(18) unique,
+  emailCor varchar(50) unique not null
+);
+
+CREATE TABLE fiador (
+  idFiador int PRIMARY KEY not null auto_increment,
+  nomeFi varchar(50) not null,
+  cpfFi varchar(13) unique not null,
+  rgFi varchar(13) unique,
+  dataNascFi date,
+  telefoneFi varchar(18) unique not null,
+  emailFi varchar(50) unique not null
+);
+
+CREATE TABLE inquilino (
+  idInquilino int PRIMARY KEY AUTO_INCREMENT,
+  nomeInq varchar(50) not null,
+  cpfInq varchar(13) unique not null,
+  rgInq varchar(13) unique,
+  dataNascInq date not null,
+  emailInq varchar(50) unique not null,
+  telefoneInq varchar(18) unique NOT null,
+  idFiador int,
+  FOREIGN KEY(idFiador) REFERENCES fiador(idFiador)
+);
 
 CREATE TABLE endereco (
-estado varchar(30),
-cidade varchar(50),
-bairro varchar(50),
-rua varchar(50),
-num varchar(6),
-idEndereco int PRIMARY KEY,
-complemento Texto(1),
-idCorretor int,
-idFiador int,
-FOREIGN KEY(idCorretor) REFERENCES corretor (idCorretor),
-FOREIGN KEY(idFiador) REFERENCES fiador (idFiador)
-)
+  idEndereco int PRIMARY KEY AUTO_INCREMENT,
+  estado varchar(30),
+  cidade varchar(50),
+  bairro varchar(50),
+  rua varchar(50),
+  num varchar(6),
+  complemento varchar(20),
+  idCorretor int,
+  idFiador int,
+  FOREIGN KEY(idCorretor) REFERENCES corretor(idCorretor),
+  FOREIGN KEY(idFiador) REFERENCES fiador(idFiador)
+);
 
-ALTER TABLE imovel ADD FOREIGN KEY(idEndereco) REFERENCES endereco (idEndereco)
-ALTER TABLE aluguel ADD FOREIGN KEY(idCorretor) REFERENCES corretor (idCorretor)
+CREATE TABLE imovel (
+  idImovel int PRIMARY KEY AUTO_INCREMENT,
+  areaConstruida float(7) not null,
+  areaTotal float(7) not null,
+  qntdQuartos int(3) not null,
+  suites int(4),
+  qntdBanheiros int(3) not null,
+  areaDeServico bit,
+  quintal bit,
+  piscina bit,
+  condominio bit,
+  garagem bit,
+  qntdVagas int(4),
+  idProprietario int,
+  idEndereco int,
+  FOREIGN KEY(idEndereco) REFERENCES endereco(idEndereco),
+  FOREIGN KEY(idProprietario) REFERENCES proprietario(idProprietario)
+);
+
+CREATE TABLE midiaImovel (
+    idMidia int PRIMARY KEY AUTO_INCREMENT,
+    midia varchar(150)
+);
+
+CREATE TABLE aluguel (
+  idAluguel int PRIMARY KEY AUTO_INCREMENT,
+  inicio date not null,
+  fim date,
+  valor float(7),
+  condicoes varchar(1024),
+  descricao varchar(1024),
+  idCorretor int,
+  idImovel int,
+  idInquilino int,
+  FOREIGN KEY(idCorretor) REFERENCES corretor(idCorretor),
+  FOREIGN KEY(idImovel) REFERENCES imovel(idImovel),
+  FOREIGN KEY(idInquilino) REFERENCES inquilino(idInquilino)
+);
