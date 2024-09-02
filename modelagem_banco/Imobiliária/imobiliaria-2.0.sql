@@ -5,7 +5,6 @@
 -- Host: 127.0.0.1
 -- Tempo de geração: 02-Set-2024 às 14:08
 -- Versão do servidor: 10.4.27-MariaDB
--- versão do PHP: 8.0.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
