@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Tempo de geração: 02-Set-2024 às 05:09
--- Versão do servidor: 8.0.31
--- versão do PHP: 8.0.26
+-- Host: 127.0.0.1
+-- Tempo de geração: 02-Set-2024 às 14:08
+-- Versão do servidor: 10.4.27-MariaDB
+-- versão do PHP: 8.0.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `imobiliaria`
 --
-CREATE DATABASE IF NOT EXISTS `imobiliaria` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-USE `imobiliaria`;
 
 -- --------------------------------------------------------
 
@@ -29,18 +27,17 @@ USE `imobiliaria`;
 -- Estrutura da tabela `aluguel`
 --
 
-DROP TABLE IF EXISTS `aluguel`;
 CREATE TABLE `aluguel` (
-  `idAluguel` int NOT NULL,
+  `idAluguel` int(11) NOT NULL,
   `inicio` date NOT NULL,
   `fim` date DEFAULT NULL,
   `valor` float DEFAULT NULL,
   `condicoes` varchar(1024) DEFAULT NULL,
   `descricao` varchar(1024) DEFAULT NULL,
-  `idCorretor` int DEFAULT NULL,
-  `idImovel` int DEFAULT NULL,
-  `idInquilino` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `idCorretor` int(11) DEFAULT NULL,
+  `idImovel` int(11) DEFAULT NULL,
+  `idInquilino` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Extraindo dados da tabela `aluguel`
@@ -64,16 +61,15 @@ INSERT INTO `aluguel` (`idAluguel`, `inicio`, `fim`, `valor`, `condicoes`, `desc
 -- Estrutura da tabela `corretor`
 --
 
-DROP TABLE IF EXISTS `corretor`;
 CREATE TABLE `corretor` (
-  `idCorretor` int NOT NULL,
+  `idCorretor` int(11) NOT NULL,
   `nomeCor` varchar(50) NOT NULL,
   `cpfCor` varchar(13) NOT NULL,
   `rgCor` varchar(13) DEFAULT NULL,
   `dataNascCor` date DEFAULT NULL,
   `telefoneCor` varchar(18) DEFAULT NULL,
   `emailCor` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Extraindo dados da tabela `corretor`
@@ -97,18 +93,17 @@ INSERT INTO `corretor` (`idCorretor`, `nomeCor`, `cpfCor`, `rgCor`, `dataNascCor
 -- Estrutura da tabela `endereco`
 --
 
-DROP TABLE IF EXISTS `endereco`;
 CREATE TABLE `endereco` (
-  `idEndereco` int NOT NULL,
+  `idEndereco` int(11) NOT NULL,
   `estado` varchar(30) DEFAULT NULL,
   `cidade` varchar(50) DEFAULT NULL,
   `bairro` varchar(50) DEFAULT NULL,
   `rua` varchar(50) DEFAULT NULL,
   `num` varchar(6) DEFAULT NULL,
   `complemento` varchar(20) DEFAULT NULL,
-  `idCorretor` int DEFAULT NULL,
-  `idFiador` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `idCorretor` int(11) DEFAULT NULL,
+  `idFiador` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Extraindo dados da tabela `endereco`
@@ -132,16 +127,15 @@ INSERT INTO `endereco` (`idEndereco`, `estado`, `cidade`, `bairro`, `rua`, `num`
 -- Estrutura da tabela `fiador`
 --
 
-DROP TABLE IF EXISTS `fiador`;
 CREATE TABLE `fiador` (
-  `idFiador` int NOT NULL,
+  `idFiador` int(11) NOT NULL,
   `nomeFi` varchar(50) NOT NULL,
   `cpfFi` varchar(13) NOT NULL,
   `rgFi` varchar(13) DEFAULT NULL,
   `dataNascFi` date DEFAULT NULL,
   `telefoneFi` varchar(18) NOT NULL,
   `emailFi` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Extraindo dados da tabela `fiador`
@@ -165,24 +159,23 @@ INSERT INTO `fiador` (`idFiador`, `nomeFi`, `cpfFi`, `rgFi`, `dataNascFi`, `tele
 -- Estrutura da tabela `imovel`
 --
 
-DROP TABLE IF EXISTS `imovel`;
 CREATE TABLE `imovel` (
-  `idImovel` int NOT NULL,
+  `idImovel` int(11) NOT NULL,
   `areaConstruida` float NOT NULL,
   `areaTotal` float NOT NULL,
-  `qntdQuartos` int NOT NULL,
-  `suites` int DEFAULT NULL,
-  `qntdBanheiros` int NOT NULL,
+  `qntdQuartos` int(11) NOT NULL,
+  `suites` int(11) DEFAULT NULL,
+  `qntdBanheiros` int(11) NOT NULL,
   `areaDeServico` bit(1) DEFAULT NULL,
   `quintal` bit(1) DEFAULT NULL,
   `piscina` bit(1) DEFAULT NULL,
   `condominio` bit(1) DEFAULT NULL,
   `garagem` bit(1) DEFAULT NULL,
-  `qntdVagas` int DEFAULT NULL,
-  `idProprietario` int DEFAULT NULL,
-  `idEndereco` int DEFAULT NULL,
-  `qntdComodos` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `qntdVagas` int(11) DEFAULT NULL,
+  `idProprietario` int(11) DEFAULT NULL,
+  `idEndereco` int(11) DEFAULT NULL,
+  `qntdComodos` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Extraindo dados da tabela `imovel`
@@ -206,34 +199,33 @@ INSERT INTO `imovel` (`idImovel`, `areaConstruida`, `areaTotal`, `qntdQuartos`, 
 -- Estrutura da tabela `inquilino`
 --
 
-DROP TABLE IF EXISTS `inquilino`;
 CREATE TABLE `inquilino` (
-  `idInquilino` int NOT NULL,
+  `idInquilino` int(11) NOT NULL,
   `nomeInq` varchar(50) NOT NULL,
   `cpfInq` varchar(13) NOT NULL,
   `rgInq` varchar(13) DEFAULT NULL,
   `dataNascInq` date NOT NULL,
   `emailInq` varchar(50) NOT NULL,
   `telefoneInq` varchar(18) NOT NULL,
-  `idFiador` int DEFAULT NULL,
+  `idFiador` int(11) DEFAULT NULL,
   `salario` decimal(7,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Extraindo dados da tabela `inquilino`
 --
 
 INSERT INTO `inquilino` (`idInquilino`, `nomeInq`, `cpfInq`, `rgInq`, `dataNascInq`, `emailInq`, `telefoneInq`, `idFiador`, `salario`) VALUES
-(1, 'Lucas Lima', '123.456.789-1', '12.345.678-0', '1995-04-25', 'lucas.lima@inquilino.com', '(11) 91234-5678', 1, '0.00'),
-(2, 'Mariana Sousa', '234.567.891-1', '23.456.789-1', '1994-07-12', 'mariana.sousa@inquilino.com', '(11) 91235-5678', 2, '0.00'),
-(3, 'Pedro Ferreira', '345.678.912-2', '34.567.891-2', '1993-11-08', 'pedro.ferreira@inquilino.com', '(11) 91236-5678', 3, '0.00'),
-(4, 'Amanda Oliveira', '456.789.123-3', '45.678.912-3', '1992-05-15', 'amanda.oliveira@inquilino.com', '(11) 91237-5678', 4, '0.00'),
-(5, 'João Souza', '567.891.234-4', '56.789.123-4', '1991-09-28', 'joao.souza@inquilino.com', '(11) 91238-5678', 5, '0.00'),
-(6, 'Fernanda Silva', '678.912.345-5', '67.891.234-5', '1996-12-01', 'fernanda.silva@inquilino.com', '(11) 91239-5678', 6, '0.00'),
-(7, 'Gabriel Costa', '789.123.456-6', '78.912.345-6', '1990-03-19', 'gabriel.costa@inquilino.com', '(11) 91240-5678', 7, '0.00'),
-(8, 'Juliana Rocha', '891.234.567-7', '89.123.456-7', '1997-08-10', 'juliana.rocha@inquilino.com', '(11) 91241-5678', 8, '0.00'),
-(9, 'Carlos Santos', '912.345.678-8', '91.234.567-8', '1998-02-22', 'carlos.santos@inquilino.com', '(11) 91242-5678', 9, '0.00'),
-(10, 'Ana Paula', '234.567.890-1', '23.456.789-0', '1995-06-15', 'ana.paula@inquilino.com', '(11) 91243-5678', 10, '0.00');
+(1, 'Lucas Lima', '123.456.789-1', '12.345.678-0', '1981-12-21', 'lucas.lima@inquilino.com', '(11) 91234-5678', 1, '0.00'),
+(2, 'Mariana Sousa', '234.567.891-1', '23.456.789-1', '1974-02-14', 'mariana.sousa@inquilino.com', '(11) 91235-5678', 2, '0.00'),
+(3, 'Pedro Ferreira', '345.678.912-2', '34.567.891-2', '1960-06-02', 'pedro.ferreira@inquilino.com', '(11) 91236-5678', 3, '0.00'),
+(4, 'Amanda Oliveira', '456.789.123-3', '45.678.912-3', '1992-05-15', 'amanda.oliveira@inquilino.com', '(11) 91237-5678', 4, '2800.00'),
+(5, 'João Souza', '567.891.234-4', '56.789.123-4', '1991-09-28', 'joao.souza@inquilino.com', '(11) 91238-5678', 5, '4000.00'),
+(6, 'Fernanda Silva', '678.912.345-5', '67.891.234-5', '1996-12-01', 'fernanda.silva@inquilino.com', '(11) 91239-5678', 6, '4500.00'),
+(7, 'Gabriel Costa', '789.123.456-6', '78.912.345-6', '1990-03-19', 'gabriel.costa@inquilino.com', '(11) 91240-5678', 7, '2700.00'),
+(8, 'Juliana Rocha', '891.234.567-7', '89.123.456-7', '1997-08-10', 'juliana.rocha@inquilino.com', '(11) 91241-5678', 8, '3100.00'),
+(9, 'Carlos Santos', '912.345.678-8', '91.234.567-8', '1998-02-22', 'carlos.santos@inquilino.com', '(11) 91242-5678', 9, '2900.00'),
+(10, 'Ana Paula', '234.567.890-1', '23.456.789-0', '1995-06-15', 'ana.paula@inquilino.com', '(11) 91243-5678', 10, '3400.00');
 
 -- --------------------------------------------------------
 
@@ -241,9 +233,8 @@ INSERT INTO `inquilino` (`idInquilino`, `nomeInq`, `cpfInq`, `rgInq`, `dataNascI
 -- Estrutura da tabela `midiaimovel`
 --
 
-DROP TABLE IF EXISTS `midiaimovel`;
 CREATE TABLE `midiaimovel` (
-  `idMidia` int NOT NULL,
+  `idMidia` int(11) NOT NULL,
   `midia1` varchar(150) DEFAULT NULL,
   `midia2` varchar(150) DEFAULT NULL,
   `midia3` varchar(150) DEFAULT NULL,
@@ -259,7 +250,7 @@ CREATE TABLE `midiaimovel` (
   `midia13` varchar(150) DEFAULT NULL,
   `midia14` varchar(150) DEFAULT NULL,
   `midia15` varchar(150) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -267,9 +258,8 @@ CREATE TABLE `midiaimovel` (
 -- Estrutura da tabela `proprietario`
 --
 
-DROP TABLE IF EXISTS `proprietario`;
 CREATE TABLE `proprietario` (
-  `idProprietario` int NOT NULL,
+  `idProprietario` int(11) NOT NULL,
   `nomeProp` varchar(50) NOT NULL,
   `cpfProp` varchar(13) NOT NULL,
   `rgProp` varchar(13) DEFAULT NULL,
@@ -279,14 +269,14 @@ CREATE TABLE `proprietario` (
   `agencia` varchar(4) NOT NULL,
   `numConta` varchar(20) NOT NULL,
   `chavePix` varchar(60) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Extraindo dados da tabela `proprietario`
 --
 
 INSERT INTO `proprietario` (`idProprietario`, `nomeProp`, `cpfProp`, `rgProp`, `dataNascProp`, `telefoneProp`, `emailProp`, `agencia`, `numConta`, `chavePix`) VALUES
-(1, 'Carlos Silva', '123.456.789-0', '12.345.678-9', '1980-01-01', '111) 91234-5678', 'carlos.silva@email.com', '1234', '12345678-9', 'carlos.silva@pix.com'),
+(1, 'Carlos Silva', '123.456.789-0', '12.345.678-9', '1981-12-21', '111) 91234-5678', 'carlos.silva@email.com', '1234', '12345678-9', 'carlos.silva@pix.com'),
 (2, 'Maria Oliveira', '987.654.321-0', '98.765.432-1', '1975-02-10', '111) 99876-5432', 'maria.oliveira@email.com', '4321', '87654321-0', 'maria.oliveira@pix.com'),
 (3, 'João Souza', '456.789.123-0', '45.678.912-3', '1985-03-15', '111) 93456-7890', 'joao.souza@email.com', '5678', '12349876-1', 'joao.souza@pix.com'),
 (4, 'Ana Costa', '789.123.456-0', '78.912.345-6', '1990-04-20', '111) 94321-0987', 'ana.costa@email.com', '9876', '65432109-8', 'ana.costa@pix.com'),
@@ -384,49 +374,49 @@ ALTER TABLE `proprietario`
 -- AUTO_INCREMENT de tabela `aluguel`
 --
 ALTER TABLE `aluguel`
-  MODIFY `idAluguel` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `idAluguel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de tabela `corretor`
 --
 ALTER TABLE `corretor`
-  MODIFY `idCorretor` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `idCorretor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de tabela `endereco`
 --
 ALTER TABLE `endereco`
-  MODIFY `idEndereco` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `idEndereco` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de tabela `fiador`
 --
 ALTER TABLE `fiador`
-  MODIFY `idFiador` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `idFiador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de tabela `imovel`
 --
 ALTER TABLE `imovel`
-  MODIFY `idImovel` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `idImovel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de tabela `inquilino`
 --
 ALTER TABLE `inquilino`
-  MODIFY `idInquilino` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `idInquilino` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de tabela `midiaimovel`
 --
 ALTER TABLE `midiaimovel`
-  MODIFY `idMidia` int NOT NULL AUTO_INCREMENT;
+  MODIFY `idMidia` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `proprietario`
 --
 ALTER TABLE `proprietario`
-  MODIFY `idProprietario` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `idProprietario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Restrições para despejos de tabelas
