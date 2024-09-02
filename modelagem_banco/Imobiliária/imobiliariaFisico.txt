@@ -40,6 +40,7 @@ CREATE TABLE inquilino (
   emailInq varchar(50) unique not null,
   telefoneInq varchar(18) unique NOT null,
   idFiador int,
+  salario decimal(7,2) NOT NULL,
   FOREIGN KEY(idFiador) REFERENCES fiador(idFiador)
 );
 
@@ -66,6 +67,7 @@ CREATE TABLE imovel (
   qntdBanheiros int(3) not null,
   areaDeServico bit,
   quintal bit,
+  qntdComodos int(11) NOT NULL,
   piscina bit,
   condominio bit,
   garagem bit,
