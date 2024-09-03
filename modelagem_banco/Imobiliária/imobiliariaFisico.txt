@@ -52,10 +52,8 @@ CREATE TABLE endereco (
   rua varchar(50),
   num varchar(6),
   complemento varchar(20),
-  idCorretor int,
-  idFiador int,
-  FOREIGN KEY(idCorretor) REFERENCES corretor(idCorretor),
-  FOREIGN KEY(idFiador) REFERENCES fiador(idFiador)
+  idImovel int,
+  FOREIGN KEY(idImovel) REFERENCES imovel(idImovel)
 );
 
 CREATE TABLE imovel (

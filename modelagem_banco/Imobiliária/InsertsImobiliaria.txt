@@ -47,17 +47,17 @@ INSERT INTO inquilino (nomeInq, cpfInq, rgInq, dataNascInq, emailInq, telefoneIn
 ('Carlos Santos', '912.345.678-89', '91.234.567-8', '1998-02-22', 'carlos.santos@inquilino.com', '(11) 91242-5678', 9, 3200.00),
 ('Ana Paula', '234.567.890-12', '23.456.789-0', '1995-06-15', 'ana.paula@inquilino.com', '(11) 91243-5678', 10, 4300.00);
 
-INSERT INTO endereco (estado, cidade, bairro, rua, num, complemento, idCorretor, idFiador) VALUES
-('São Paulo', 'São Paulo', 'Vila Mariana', 'Rua A', '100', 'Apt 1', 1, 1),
-('São Paulo', 'São Paulo', 'Pinheiros', 'Rua B', '200', 'Casa 2', 2, 2),
-('São Paulo', 'São Paulo', 'Moema', 'Rua C', '300', 'Apt 3', 3, 3),
-('São Paulo', 'São Paulo', 'Itaim Bibi', 'Rua D', '400', 'Casa 4', 4, 4),
-('São Paulo', 'São Paulo', 'Jardins', 'Rua E', '500', 'Apt 5', 5, 5),
-('São Paulo', 'São Paulo', 'Liberdade', 'Rua F', '600', 'Casa 6', 6, 6),
-('São Paulo', 'São Paulo', 'Brooklin', 'Rua G', '700', 'Apt 7', 7, 7),
-('São Paulo', 'São Paulo', 'Tatuapé', 'Rua H', '800', 'Casa 8', 8, 8),
-('São Paulo', 'São Paulo', 'Santana', 'Rua I', '900', 'Apt 9', 9, 9),
-('São Paulo', 'São Paulo', 'Lapa', 'Rua J', '1000', 'Casa 10', 10, 10);
+INSERT INTO endereco (estado, cidade, bairro, rua, num, complemento) VALUES
+('São Paulo', 'São Paulo', 'Vila Mariana', 'Rua A', '100', 'Apt 1'),
+('São Paulo', 'São Paulo', 'Pinheiros', 'Rua B', '200', 'Casa 2'),
+('São Paulo', 'São Paulo', 'Moema', 'Rua C', '300', 'Apt 3'),
+('São Paulo', 'São Paulo', 'Itaim Bibi', 'Rua D', '400', 'Casa 4'),
+('São Paulo', 'São Paulo', 'Jardins', 'Rua E', '500', 'Apt 5'),
+('São Paulo', 'São Paulo', 'Liberdade', 'Rua F', '600', 'Casa 6'),
+('São Paulo', 'São Paulo', 'Brooklin', 'Rua G', '700', 'Apt 7'),
+('São Paulo', 'São Paulo', 'Tatuapé', 'Rua H', '800', 'Casa 8'),
+('São Paulo', 'São Paulo', 'Santana', 'Rua I', '900', 'Apt 9'),
+('São Paulo', 'São Paulo', 'Lapa', 'Rua J', '1000', 'Casa 10');
 
 INSERT INTO imovel (areaConstruida, areaTotal, qntdQuartos, suites, qntdBanheiros, areaDeServico, quintal, piscina, condominio, garagem, qntdVagas, idProprietario, idEndereco) VALUES
 (120.0, 200.0, 3, 1, 2, 1, 1, 0, 1, 1, 2, 1, 1),
