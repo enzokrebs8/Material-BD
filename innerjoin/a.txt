@@ -1,0 +1,10 @@
+ALTER TABLE clienteveiculo
+    ADD CONSTRAINT fk_cpf FOREIGN KEY (cpf) REFERENCES cliente (cpf),
+    ADD CONSTRAINT fk_nome FOREIGN KEY (nome) REFERENCES cliente (nome),
+    ADD CONSTRAINT fk_placa FOREIGN KEY (placa) REFERENCES veiculo (placa),
+    ADD CONSTRAINT fk_codModelo FOREIGN KEY (codModelo) REFERENCES modelo (codModelo),
+    ADD CONSTRAINT fk_cod FOREIGN KEY (cod) REFERENCES estaciona (cod),
+    ADD CONSTRAINT fk_dataEntrada FOREIGN KEY (dataEntrada) REFERENCES estaciona (dataEntrada),
+    ADD CONSTRAINT fk_dataSaida FOREIGN KEY (dataSaida) REFERENCES estaciona (dataSaida),
+    ADD CONSTRAINT fk_horEntrada FOREIGN KEY (horEntrada) REFERENCES estaciona (horEntrada),
+    ADD CONSTRAINT fk_horSaida FOREIGN KEY (horSaida) REFERENCES estaciona (horSaida);
